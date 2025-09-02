@@ -3,6 +3,9 @@
 --primary: #2eb872;
 --light: #F3F4F5;
 --dark: #282F34;
+--brand-green: rgb(46, 184, 114);
+--brand-green-dark: rgb(30, 150, 90);
+--brand-green-darker: rgb(20, 120, 70);
 }
 
 .back-to-top {
@@ -127,43 +130,19 @@ font-weight: normal;
 }
 
 @media (min-width:992px) {
-    #mainNav {
-        padding-top: 25px;
-        padding-bottom: 25px;
-        transition: padding-top .3s, padding-bottom .3s;
-        border: none;
-        background-color: transparent
-    }
-
-    #mainNav .navbar-brand,
-    #mainNav .navbar-brand:hover {
-        font-size: 1.75em;
-        transition: all .3s;
-        color: #212529
-    }
-
-    #mainNav .navbar-nav .nav-item .nav-link {
-        padding: 1.1em 1em !important;
-        color: #212529;
-    }
-
-    #mainNav.navbar-shrink {
-        padding-top: 0;
-        padding-bottom: 0;
-        background-color: #212529
-    }
-
-    #mainNav.navbar-shrink .nav-item .nav-link {
-        color: #fff;
-    }
-
-    #mainNav.navbar-shrink .navbar-brand {
-        font-size: 1.25em;
-        padding: 12px 0;
-        color: var(--main-color);
-    }
-
+  .navbar .nav-link {
+    font-size: 1.05rem;    /* texto del menú ligeramente mayor */
+    padding-left: 1rem;    /* más área clicable sin desbordar */
+    padding-right: 1rem;
+  }
 }
+
+@media (min-width: 1200px) { /* >= xl */
+  .navbar .nav-link {
+    font-size: 1.12rem;    /* un pelín más en pantallas grandes */
+  }
+}
+
 
 /*** Header ***/
 .header-bg {
@@ -338,10 +317,6 @@ display: flex;
 align-items: center;
 }
 
-.navbar .navbar-brand img {
-max-height: 50px;
-}
-
 .navbar .dropdown-toggle::after {
 border: none;
 content: "\f107";
@@ -366,14 +341,170 @@ outline: none;
 color: var(--primary);
 }
 
+@media (max-width: 991px) {
+.navbar-brand {
+  max-width: calc(100% - 60px); /* Deja espacio para el botón hamburguesa */
+  overflow: hidden;
+}
+
+/* Mejorar el toggler (botón hamburguesa) */
+.navbar-toggler {
+    margin: 0;
+    border: none;
+    padding: 8px 12px;
+    background-color: transparent;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(46, 184, 114, 0.1);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2846, 184, 114, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 1.5em;
+    height: 1.5em;
+}
+
+/* Mejorar el menú desplegable */
+.navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #212529;
+    border-top: 2px solid var(--primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 8px 8px;
+    z-index: 1000;
+}
+
+.navbar-nav {
+    margin: 0 !important;
+    padding: 15px 0 !important;
+    text-align: center;
+    flex-direction: column;
+    width: 100%;
+    list-style: none;
+}
+
+.navbar-nav .nav-link {
+    margin: 0 !important;
+    padding: 12px 20px !important;
+    color: #ffffff !important;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Asegurar espaciado uniforme para todos los enlaces */
+.navbar-nav .nav-link:first-child,
+.navbar-nav .nav-link:nth-child(1) {
+    margin-top: 0 !important;
+    padding-top: 12px !important;
+}
+
+.navbar-nav .nav-link:last-child {
+    border-bottom: none;
+    margin-bottom: 0 !important;
+    padding-bottom: 12px !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    background-color: rgba(46, 184, 114, 0.1);
+    color: var(--primary) !important;
+}
+
+/* Reset específico para evitar espaciados irregulares */
+.navbar-nav .nav-link * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Normalizar el comportamiento de todos los enlaces del menú móvil */
+@media (max-width: 991px) {
+    .navbar-nav .nav-item,
+    .navbar-nav .nav-link {
+        margin: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+    }
+    
+    /* Eliminar cualquier margen adicional del primer y último elemento */
+    .navbar-nav .nav-link:first-of-type {
+        margin-top: 0 !important;
+        border-top: none !important;
+    }
+    
+    .navbar-nav .nav-link:last-of-type {
+        margin-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+}
+
+/* Animación suave para el colapso */
+.navbar-collapse.collapsing {
+    transition: height 0.35s ease;
+}
+
+.navbar-collapse.show {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+}
+
 @media (max-width: 991.98px) {
-.navbar .navbar-nav .nav-link  {
-margin-right: 0;
-padding: 10px 0;
+.navbar .navbar-nav .nav-link {
+    margin-right: 0;
+    padding: 12px 20px;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar .navbar-nav {
-border-top: 1px solid #EEEEEE;
+    border-top: none;
+}
+
+/* Asegurar que el contenedor del navbar tenga z-index apropiado */
+.navbar {
+    z-index: 1030;
+}
+
+/* Mejorar espaciado en móviles muy pequeños */
+@media (max-width: 575px) {
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .navbar-brand {
+        max-width: calc(100% - 50px);
+    }
 }
 }
 
@@ -427,93 +558,6 @@ opacity: 1;
     object-fit: cover;
 }
 
-
-/***LINEA TEMPORAL**/
-.linea-tiempo {
-position: relative;
-width: 500px;
-max-width: 95vw;
-height: 100%;
-font-family: Arial;
-margin: 0 auto;
-}
-
-.linea-tiempo::before {
-content: '';
-position: absolute;
-width: 3px;
-background-color: #000;
-left: 50%;
-height: 100%;
-border-radius: 10px;
-}
-
-.momento {
-position: relative;
-width: 45%;
-box-sizing: border-box;
-}
-
-.momento:nth-child(even) {
-left: 55%;
-}
-
-.momento::after {
-content: '';
-position: absolute;
-top: calc(50% + 10px);
-right: calc(-11.11% - 11.5px);
-height: 20px;
-width: 20px;
-background-color: #2eb872;
-border-radius: 50%;
-}
-
-.momento:nth-child(even)::after {
-left: calc(-11.11% - 8.5px);
-}
-
-.momento h3 {
-margin: 10px 0px;
-font-size: 30px;
-text-align: center;
-}
-
-.momento .descripcion {
-color: #000000;
-background-color: #2eb872;
-border-radius: 10px;
-padding: 10px;
-line-height: 22px;
-font-size: 14px;
-}
-
-.momento .descripcion::after {
-content: '';
-position: absolute;
-right: -10px;
-top: calc(50% + 10px);
-height: 0;
-width: 0;
-border-top: 10px solid transparent;
-border-bottom: 10px solid transparent;
-border-left: 12px solid rgb(246, 221, 197);
-}
-
-.momento:nth-child(even) .descripcion {
-background-color: #2eb872;
-color: rgb(0, 0, 0);
-}
-
-.momento:nth-child(even) .descripcion::after {
-left: -10px;
-border-top: 10px solid transparent;
-border-bottom: 10px solid transparent;
-border-right: 12px solid rgb(246, 221, 197);
-border-left: none;
-}
-
-
 /*** Spinner ***/
 #spinner {
 opacity: 0;
@@ -532,47 +576,16 @@ opacity: 1;
 /* Ajustes generales para dispositivos móviles */
 @media screen and (max-width: 767px) {
 .clients-item-height {
-    margin-bottom: 20px; /* Ajuste de margen entre elementos en dispositivos móviles */
+    margin-bottom: 20px;
 }
 
 .section-title-wrap {
-    text-align: center; /* Centrar el título en dispositivos móviles */
+    text-align: center; 
 }
 
 .clients-item-height a img {
-    max-width: 100%; /* Ajuste para que las imágenes no se desborden en dispositivos móviles */
+    max-width: 100%;
     height: auto;
-}
-
-.navbar.sticky-top {
-    top: 0; /* Ajuste para que la barra de navegación no esté oculta en dispositivos móviles */
-}
-
-.navbar-nav {
-    text-align: center; /* Centrar los elementos del menú en dispositivos móviles */
-}
-
-.navbar-toggler {
-    margin: 0;
-}
-
-.navbar-collapse {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    transform: translateY(100%);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.navbar-nav {
-    margin: 0;
-}
-
-.navbar-nav .nav-link {
-    margin: 0 10px;
-    padding: 10px 0;
 }
 }
 
@@ -582,7 +595,7 @@ opacity: 1;
     position: static; /* Cambio de posición en dispositivos más pequeños */
     max-width: 100%;
     max-height: 100%; /* Ajuste para que la imagen ocupe el espacio disponible */
-    margin: 0 auto; /* Centrar la imagen */
+    margin: 0 auto;
 }
 }
 
@@ -1505,6 +1518,828 @@ color: var(--light);
 color: var(--primary);
 }
 
+/*** Responsive Brand Logo ***/
+.brand-logo {
+  height: auto;
+  max-height: 58px;
+  width: auto;
+  max-width: 58px;
+  object-fit: contain;
+  transition: all 0.3s ease;
 
+}
 
+/* Tablet y pantallas medianas */
+@media (max-width: 1199px) {
+  .brand-logo {
+    max-height: 45px;
+    max-width: 45px;
+  }
+}
 
+/* Tablets pequeñas */
+@media (max-width: 991px) {
+  .brand-logo {
+    max-height: 40px;
+    max-width: 40px;
+  }
+}
+
+/* Móviles */
+@media (max-width: 767px) {
+  .brand-logo {
+    max-height: 35px;
+    max-width: 35px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 575px) {
+  .brand-logo {
+    max-height: 32px;
+    max-width: 32px;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 399px) {
+  .brand-logo {
+    max-height: 28px;
+    max-width: 28px;
+  }
+}
+
+/*** Responsive navbar brand text ***/
+.navbar-brand span {
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Texto más grande para pantallas de ordenador */
+@media (min-width: 1200px) {
+  .navbar-brand span {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .navbar-brand span {
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-brand span {
+    font-size: 1.3rem;
+  }
+}
+
+/* Ajustar texto en móviles */
+@media (max-width: 767px) {
+  .navbar-brand span {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar-brand span {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 399px) {
+  .navbar-brand span {
+    font-size: 0.8rem;
+  }
+}
+
+/* ===========================================
+   FLIP CARDS DE CERTIFICACIONES
+   =========================================== */
+
+.flip-card-container {
+  perspective: 1000px;
+  height: 300px;
+  margin-bottom: 30px;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card-container:hover .flip-card {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.flip-card-front {
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border: 2px solid var(--primary);
+}
+
+.flip-card-back {
+  background: linear-gradient(135deg, var(--primary) 0%, #1e9654 100%);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.flip-card-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+}
+
+.flip-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.flip-card-back-content {
+  text-align: center;
+  width: 100%;
+}
+
+.flip-card-description {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.flip-card-skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.flip-skill-tag {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.flip-card-btn {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.flip-card-btn:hover {
+  background: #f8f9fa;
+  color: var(--primary);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design para Flip Cards */
+@media (max-width: 768px) {
+  .flip-card-container {
+    height: 280px;
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    padding: 20px;
+  }
+  
+  .flip-card-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .flip-card-title {
+    font-size: 1rem;
+  }
+  
+  .flip-card-description {
+    font-size: 0.85rem;
+  }
+  
+  .flip-skill-tag {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 576px) {
+  .flip-card-container {
+    height: 250px;
+  }
+  
+  .flip-card-front,
+  .flip-card-back {
+    padding: 15px;
+  }
+  
+  .flip-card-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .flip-card-title {
+    font-size: 0.9rem;
+  }
+  
+  .flip-card-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* Espaciado adicional para título de certificaciones */
+.education-subsection-title.mb-4 {
+  margin-bottom: 80px !important;
+}
+
+.certification-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.certification-logo {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.certification-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.certification-info {
+  flex: 1;
+}
+
+.certification-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+
+.certification-issuer {
+  color: #007bff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.certification-level .badge {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+.certification-description {
+  color: #6c757d;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.certification-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ===========================================
+   TARJETA DE PREMIO
+   =========================================== */
+
+.award-card .card {
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.award-card .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #ffc107, #fd7e14, #dc3545);
+}
+
+.award-icon {
+  position: relative;
+}
+
+.award-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border: 3px solid #ffc107;
+}
+
+.award-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.award-issuer {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.award-issuer i {
+  margin-right: 8px;
+}
+
+.award-description {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.award-highlights .highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.highlight-item i {
+  font-size: 1.5rem;
+}
+
+.highlight-item span {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+/* ===========================================
+   ESTADÍSTICAS DE FORMACIÓN
+   =========================================== */
+
+.education-stats {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  max-width: 800px;
+}
+
+.stat-item {
+  padding: 20px;
+  text-align: center;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: #f8f9fa;
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===========================================
+   NUEVO TIMELINE - CONSTRUCCIÓN PASO A PASO
+   =========================================== */
+
+/* Contenedor principal del timeline */
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: -250px auto 0 auto;
+  padding: 0px 0 180px 0;
+  min-height: 600px;
+}
+
+/* Línea vertical central */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* Círculos/marcadores en la línea del timeline */
+.timeline-marker {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  border: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+/* Marcador del principio (arriba) - justo al inicio de la línea */
+.timeline-marker.top {
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+/* Marcador del medio */
+.timeline-marker.middle {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Marcador del final (abajo) - justo al final de la línea */
+.timeline-marker.bottom {
+  bottom: 0;
+  transform: translate(-50%, 50%);
+}
+
+/* Cuadro al lado izquierdo del primer punto del timeline */
+.timeline-box {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background-color: #fff;
+  border: 2px solid var(--primary);
+  border-radius: 12px 0 12px 12px; /* Superior izq, Superior der, Inferior der, Inferior izq */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.timeline-box.left-box {
+  top: 0;
+  left: calc(50% - 430px); /* 50% menos 410px para mantener el margen con la línea al expandir hacia la izquierda */
+  transform: translateY(-3px); /* Ajuste para alinear el borde superior derecho con el centro del círculo */
+}
+
+.timeline-box.right-box {
+  top: 50%;
+  right: calc(50% - 430px);
+  transform: translateY(-3px);
+  border-radius: 0 12px 12px 12px; /* Superior izq, Superior der, Inferior der, Inferior izq - esquina superior derecha cortada */
+}
+
+.timeline-box.left-box-bottom {
+  bottom: -200px;
+  left: calc(50% - 430px);
+  transform: translateY(0);
+  border-radius: 12px 0 12px 12px; /* Superior izq, Superior der, Inferior der, Inferior izq - esquina superior derecha cortada */
+}
+
+/* Contenido del cuadro del timeline */
+.timeline-content {
+  padding: 25px 20px 25px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.timeline-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 0px 0;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.timeline-subtitle {
+  font-size: 0.95rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin: -4px 0 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.timeline-subtitle::before {
+  content: "\f19c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 8px;
+  color: var(--primary);
+}
+
+.timeline-description {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 400;
+  margin: -2px 0 0 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Período de formación en la esquina superior izquierda */
+.timeline-period {
+  position: absolute;
+  top: -15px;
+  left: calc(50% - 410px);
+  z-index: 4;
+}
+
+/* Período del segundo elemento en la esquina superior derecha */
+.timeline-period-second {
+  position: absolute;
+  top: calc(50% - 15px);
+  right: calc(50% - 410px);
+  z-index: 4;
+}
+
+/* Período del tercer elemento en la esquina superior izquierda */
+.timeline-period-third {
+  position: absolute;
+  bottom: -15px;
+  left: calc(50% - 410px);
+  z-index: 4;
+}
+
+.period-text {
+  display: inline-block;
+  background-color: #f8f9fa;
+  color: #000;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+@media (max-width: 768px) {
+  .education-subsection-title {
+    font-size: 1.6rem;
+  }
+
+  .education-subsection-title i {
+    font-size: 1.8rem;
+  }
+
+  .certification-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .certification-logo {
+    align-self: center;
+  }
+
+  .award-highlights .col-md-4 {
+    margin-bottom: 15px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .certification-skills {
+    justify-content: center;
+  }
+
+  .award-card .card-body {
+    padding: 30px 20px;
+  }
+
+  .education-stats {
+    padding: 30px 15px;
+  }
+}
+
+/* ===========================================
+   ANIMACIONES
+   =========================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.timeline-item,
+.certification-card,
+.award-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.timeline-item:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.timeline-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.certification-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.certification-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* ===========================================
+   MEJORAS DE ACCESIBILIDAD
+   =========================================== */
+
+.timeline-content:focus,
+.certification-card .card:focus,
+.award-card .card:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Reducir animaciones para usuarios que las prefieren minimizadas */
+@media (prefers-reduced-motion: reduce) {
+  .timeline-item,
+  .certification-card,
+  .award-card,
+  .timeline-content,
+  .certification-card .card,
+  .stat-item {
+    animation: none;
+    transition: none;
+  }
+
+  .timeline-content:hover,
+  .certification-card .card:hover,
+  .stat-item:hover {
+    transform: none;
+  }
+}
+
+/* Espaciado adicional para sección de certificaciones */
+.education-section {
+  margin-top: 290px !important;
+}
+
+/* Espaciado para la sección de formación */
+#education {
+  padding-top: 60px !important;
+}
+
+/* Reducir espaciado entre título de formación y timeline */
+#education .section-heading {
+  margin-bottom: 10px !important;
+}
+
+/* ===========================================
+   RESPONSIVE TIMELINE SOLO PARA MÓVILES
+   =========================================== */
+
+@media (max-width: 768px) {
+  /* Ocultar línea vertical en móviles */
+  .timeline-container::before {
+    display: none !important;
+  }
+  
+  /* Ocultar círculos marcadores en móviles */
+  .timeline-marker {
+    display: none !important;
+  }
+  
+  /* OCULTAR PERÍODOS EN MÓVILES */
+  .timeline-period,
+  .timeline-period-second,
+  .timeline-period-third {
+    display: none !important;
+  }
+  
+  /* Contenedor del timeline para móviles */
+  .timeline-container {
+    margin: -50px auto 0 auto !important;
+    padding: 20px 15px 40px 15px !important;
+    min-height: auto !important;
+  }
+  
+  /* Todos los cuadros apilados verticalmente */
+  .timeline-box {
+    position: static !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin: 0 auto 20px auto !important;
+    border-radius: 12px !important;
+  }
+  
+  /* Contenido optimizado para móviles */
+  .timeline-content {
+    padding: 20px 15px !important;
+  }
+  
+  .timeline-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .timeline-subtitle {
+    font-size: 0.9rem !important;
+    margin-top: -2px !important;
+  }
+  
+  .timeline-description {
+    font-size: 0.8rem !important;
+    margin-top: 8px !important;
+  }
+}
