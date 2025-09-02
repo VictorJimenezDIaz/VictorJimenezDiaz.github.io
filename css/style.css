@@ -2287,6 +2287,7 @@ color: var(--primary);
   /* Ocultar línea vertical en móviles */
   .timeline-container::before {
     display: none !important;
+    
   }
   
   /* Ocultar círculos marcadores en móviles */
@@ -2303,8 +2304,8 @@ color: var(--primary);
   
   /* Contenedor del timeline para móviles */
   .timeline-container {
-    margin: -50px auto 0 auto !important;
-    padding: 20px 15px 40px 15px !important;
+    margin: -250px auto 0 auto !important;
+    padding: 20px 15px 60px 15px !important;
     min-height: auto !important;
   }
   
